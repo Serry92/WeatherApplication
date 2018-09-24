@@ -19,14 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         ViewPager viewPager = findViewById(R.id.viewpager);
-
-        // Create an adapter that knows which fragment should be shown on each page
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(this, getSupportFragmentManager());
-
-        // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
-
-        // Give the TabLayout the ViewPager
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
