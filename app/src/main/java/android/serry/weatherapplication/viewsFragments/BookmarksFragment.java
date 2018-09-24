@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.serry.weatherapplication.R;
 import android.serry.weatherapplication.adapters.BookmarksAdapter;
 import android.serry.weatherapplication.listeners.OnBookmarkClickListener;
+import android.serry.weatherapplication.listeners.OnDeleteBookmarkClickListener;
 import android.serry.weatherapplication.models.Bookmark;
 import android.serry.weatherapplication.presenters.BookmarksPresenterImp;
 import android.serry.weatherapplication.views.BookmarkWeatherActivity;
@@ -16,10 +17,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
-public class BookmarksFragment extends Fragment implements BookmarksView, OnBookmarkClickListener {
+public class BookmarksFragment extends Fragment implements BookmarksView, OnBookmarkClickListener, OnDeleteBookmarkClickListener {
     private static BookmarksFragment instanceMapFragment;
     private RecyclerView rvBookmarks;
     private BookmarksPresenterImp bookmarksPresenterImp;
@@ -55,10 +57,15 @@ public class BookmarksFragment extends Fragment implements BookmarksView, OnBook
 
     @Override
     public void setViews(List<Bookmark> bookmarks) {
-        BookmarksAdapter bookmarksAdapter = new BookmarksAdapter(getActivity(), bookmarks, this);
+        BookmarksAdapter bookmarksAdapter = new BookmarksAdapter(getActivity(), bookmarks, this, this);
         rvBookmarks.setAdapter(bookmarksAdapter);
         bookmarksAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void showDeletedMessage() {
+        Toast.makeText(getActivity(), "Successfully deleted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -73,5 +80,10 @@ public class BookmarksFragment extends Fragment implements BookmarksView, OnBook
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser)
             bookmarksPresenterImp.loadBookmarks();
+    }
+
+    @Override
+    public void OnDeleteBookmark(int id) {
+        bookmarksPresenterImp.deleteBookmark(id);
     }
 }

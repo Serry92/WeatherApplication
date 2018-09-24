@@ -7,4 +7,6 @@ public interface BookmarksPresenter {
     void onCreate(View view);
 
     void loadBookmarks();
+
+    void deleteBookmark(int id);
 }

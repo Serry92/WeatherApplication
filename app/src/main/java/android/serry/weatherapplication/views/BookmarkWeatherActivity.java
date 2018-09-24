@@ -1,6 +1,5 @@
 package android.serry.weatherapplication.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.serry.weatherapplication.R;
 import android.serry.weatherapplication.models.Bookmark;
@@ -42,6 +41,5 @@ public class BookmarkWeatherActivity extends AppCompatActivity implements Bookma
         tvTempDesc.setText(weatherResponse.getMain().getTemp());
         tvWindSpeed.setText(weatherResponse.getWind().getSpeed());
         tvWindDeg.setText(weatherResponse.getWind().getDeg());
-
     }
 }

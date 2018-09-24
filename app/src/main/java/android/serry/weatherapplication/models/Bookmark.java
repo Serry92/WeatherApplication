@@ -8,10 +8,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.serry.weatherapplication.database.AppDatabase;
 import android.serry.weatherapplication.listeners.OnLoadBookmarks;
+import android.serry.weatherapplication.listeners.OnSuccessDeletedListener;
 import android.serry.weatherapplication.listeners.OnUpdateDatabaseListener;
 import android.serry.weatherapplication.utilities.Constants;
 import android.serry.weatherapplication.viewsFragments.BookmarksFragment;
-import android.widget.ProgressBar;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -117,5 +119,10 @@ public class Bookmark implements Parcelable {
         parcel.writeString(country);
         parcel.writeString(lat);
         parcel.writeString(lng);
+    }
+
+    public void deleteBookmarkFromDB(Context context, int id, OnSuccessDeletedListener onSuccessDeletedListener) {
+        getInstance(context).bookmarkDao().delete(id);
+        onSuccessDeletedListener.onSuccessDeleted();
     }
 }

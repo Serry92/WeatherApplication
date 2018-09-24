@@ -3,6 +3,7 @@ package android.serry.weatherapplication.adapters;
 import android.content.Context;
 import android.serry.weatherapplication.R;
 import android.serry.weatherapplication.listeners.OnBookmarkClickListener;
+import android.serry.weatherapplication.listeners.OnDeleteBookmarkClickListener;
 import android.serry.weatherapplication.models.Bookmark;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,11 +20,14 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
     private List<Bookmark> bookmarks;
     private Context context;
     private OnBookmarkClickListener onBookmarkClickListener;
+    private OnDeleteBookmarkClickListener onDeleteBookmarkClickListener;
 
-    public BookmarksAdapter(Context context, List<Bookmark> bookmarks, OnBookmarkClickListener onBookmarkClickListener) {
+    public BookmarksAdapter(Context context, List<Bookmark> bookmarks, OnBookmarkClickListener onBookmarkClickListener
+            , OnDeleteBookmarkClickListener onDeleteBookmarkClickListener) {
         this.context = context;
         this.bookmarks = bookmarks;
         this.onBookmarkClickListener = onBookmarkClickListener;
+        this.onDeleteBookmarkClickListener = onDeleteBookmarkClickListener;
     }
 
     @NonNull
@@ -34,6 +39,14 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
             @Override
             public void onClick(View view) {
                 onBookmarkClickListener.onBookmarkClick(bookmarks.get(myViewHolder.getAdapterPosition()));
+            }
+        });
+        myViewHolder.ibDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDeleteBookmarkClickListener.OnDeleteBookmark(bookmarks.get(myViewHolder.getAdapterPosition()).getId());
+                bookmarks.remove(myViewHolder.getAdapterPosition());
+                notifyItemRemoved(myViewHolder.getAdapterPosition());
             }
         });
         return myViewHolder;
@@ -54,6 +67,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
     class BookmarkViewHolder extends RecyclerView.ViewHolder {
         CardView cvBookmark;
         TextView tvLocation, tvLat, tvLng;
+        ImageButton ibDelete;
 
         BookmarkViewHolder(View itemView) {
             super(itemView);
@@ -61,6 +75,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
             tvLocation = itemView.findViewById(R.id.tv_location_name);
             tvLat = itemView.findViewById(R.id.tv_lat);
             tvLng = itemView.findViewById(R.id.tv_lng);
+            ibDelete = itemView.findViewById(R.id.ib_delete);
         }
     }
 }
