@@ -32,6 +32,6 @@ public class BookmarkWeatherPresenterImp implements BookmarkWeatherPresenter, On
 
     @Override
     public void onError() {
-
+        bookmarkWeatherView.showErrorMessage();
     }
 }

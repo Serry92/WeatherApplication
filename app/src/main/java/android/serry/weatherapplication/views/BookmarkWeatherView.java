@@ -7,4 +7,6 @@ public interface BookmarkWeatherView {
     void initViews();
 
     void setViews(WeatherResponse weatherResponse);
+
+    void showErrorMessage();
 }

@@ -8,6 +8,7 @@ import android.serry.weatherapplication.listeners.OnBookmarkClickListener;
 import android.serry.weatherapplication.listeners.OnDeleteBookmarkClickListener;
 import android.serry.weatherapplication.models.Bookmark;
 import android.serry.weatherapplication.presenters.BookmarksPresenterImp;
+import android.serry.weatherapplication.utilities.Constants;
 import android.serry.weatherapplication.views.BookmarkWeatherActivity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Objects;
 
 public class BookmarksFragment extends Fragment implements BookmarksView, OnBookmarkClickListener, OnDeleteBookmarkClickListener {
     private static BookmarksFragment instanceMapFragment;
@@ -65,13 +67,13 @@ public class BookmarksFragment extends Fragment implements BookmarksView, OnBook
 
     @Override
     public void showDeletedMessage() {
-        Toast.makeText(getActivity(), "Successfully deleted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), Objects.requireNonNull(getActivity()).getResources().getString(R.string.successfully_deleted), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onBookmarkClick(Bookmark bookmark) {
         Intent intent = new Intent(getActivity(), BookmarkWeatherActivity.class);
-        intent.putExtra("bookmark", bookmark);
+        intent.putExtra(Constants.KEY_BOOKMARK, bookmark);
         startActivity(intent);
     }
 
