@@ -9,6 +9,4 @@ public interface BookmarksView {
     void initViews(View view);
 
     void setViews(List<Bookmark> bookmarks);
-
-    void refreshView();
 }

@@ -1,11 +1,13 @@
 package android.serry.weatherapplication.viewsFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.serry.weatherapplication.R;
 import android.serry.weatherapplication.adapters.BookmarksAdapter;
 import android.serry.weatherapplication.listeners.OnBookmarkClickListener;
 import android.serry.weatherapplication.models.Bookmark;
 import android.serry.weatherapplication.presenters.BookmarksPresenterImp;
+import android.serry.weatherapplication.views.BookmarkWeatherActivity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,7 +35,6 @@ public class BookmarksFragment extends Fragment implements BookmarksView, OnBook
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookmarks, container, false);
         bookmarksPresenterImp.onCreate(view);
-        bookmarksPresenterImp.loadBookmarks();
         return view;
 
     }
@@ -61,12 +62,16 @@ public class BookmarksFragment extends Fragment implements BookmarksView, OnBook
     }
 
     @Override
-    public void refreshView() {
-
+    public void onBookmarkClick(Bookmark bookmark) {
+        Intent intent = new Intent(getActivity(), BookmarkWeatherActivity.class);
+        intent.putExtra("bookmark", bookmark);
+        startActivity(intent);
     }
 
     @Override
-    public void onBookmarkClick(Bookmark bookmark) {
-
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser)
+            bookmarksPresenterImp.loadBookmarks();
     }
 }
