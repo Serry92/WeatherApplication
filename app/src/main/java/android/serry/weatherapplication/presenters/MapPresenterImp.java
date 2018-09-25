@@ -45,7 +45,7 @@ public class MapPresenterImp implements MapPresenter, OnUpdateDatabaseListener {
 
     @Override
     public void onSuccess(int count) {
-        Toast.makeText(context, "saved\n" + count + "", Toast.LENGTH_SHORT).show();
+        mapView.showSuccessMessage(count);
     }
 
 

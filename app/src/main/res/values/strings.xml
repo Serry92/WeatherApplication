@@ -12,5 +12,6 @@
     <string name="app_id">f9f89e3f8df9497aef7f3556f912f872</string>
     <string name="units">metric</string>
     <string name="successfully_deleted">Successfully deleted</string>
+    <string name="successfully_added">Successfully added \n %1$s bookmarks</string>
     <string name="error">Connection error</string>
 </resources>
