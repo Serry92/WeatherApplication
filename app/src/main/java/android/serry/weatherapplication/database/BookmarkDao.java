@@ -12,6 +12,9 @@ public interface BookmarkDao {
     @Query("SELECT * FROM Bookmark")
     List<Bookmark> getAll();
 
+    @Query("SELECT * From BOOKMARK WHERE id= :id")
+    List<Bookmark> getBookmark(int id);
+
     @Query("SELECT COUNT(*) from Bookmark")
     int countBookmark();
 

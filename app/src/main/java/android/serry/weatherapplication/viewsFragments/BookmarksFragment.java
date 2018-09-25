@@ -9,7 +9,7 @@ import android.serry.weatherapplication.listeners.OnDeleteBookmarkClickListener;
 import android.serry.weatherapplication.models.Bookmark;
 import android.serry.weatherapplication.presenters.BookmarksPresenterImp;
 import android.serry.weatherapplication.utilities.Constants;
-import android.serry.weatherapplication.views.BookmarkWeatherActivity;
+import android.serry.weatherapplication.viewsActivities.BookmarkWeatherActivity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

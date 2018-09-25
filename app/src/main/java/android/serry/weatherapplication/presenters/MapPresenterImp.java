@@ -7,7 +7,6 @@ import android.serry.weatherapplication.listeners.OnUpdateDatabaseListener;
 import android.serry.weatherapplication.models.Bookmark;
 import android.serry.weatherapplication.viewsFragments.MapView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -38,7 +37,7 @@ public class MapPresenterImp implements MapPresenter, OnUpdateDatabaseListener {
             addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
             String cityName = addresses.get(0).getAddressLine(0);
             Bookmark bookmark = new Bookmark(cityName, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
-            bookmark.addBookmarkToDatabase(bookmark, context, this);
+            bookmark.insertBookmarkToDB(bookmark, context, this);
         } catch (IOException e) {
             e.printStackTrace();
         }

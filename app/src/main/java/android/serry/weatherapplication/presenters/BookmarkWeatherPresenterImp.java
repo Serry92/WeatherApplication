@@ -3,13 +3,13 @@ package android.serry.weatherapplication.presenters;
 import android.content.Context;
 import android.serry.weatherapplication.listeners.OnLoadWeatherFromServerListener;
 import android.serry.weatherapplication.models.WeatherResponse;
-import android.serry.weatherapplication.views.BookmarkWeatherView;
+import android.serry.weatherapplication.viewsActivities.BookmarkWeatherView;
 
 public class BookmarkWeatherPresenterImp implements BookmarkWeatherPresenter, OnLoadWeatherFromServerListener {
     private BookmarkWeatherView bookmarkWeatherView;
     private Context context;
 
-    public BookmarkWeatherPresenterImp(Context context, BookmarkWeatherView bookmarkWeatherView) {
+    public BookmarkWeatherPresenterImp(BookmarkWeatherView bookmarkWeatherView, Context context) {
         this.context = context;
         this.bookmarkWeatherView = bookmarkWeatherView;
     }

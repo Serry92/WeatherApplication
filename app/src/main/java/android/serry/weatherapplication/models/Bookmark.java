@@ -11,11 +11,6 @@ import android.serry.weatherapplication.listeners.OnLoadBookmarks;
 import android.serry.weatherapplication.listeners.OnSuccessDeletedListener;
 import android.serry.weatherapplication.listeners.OnUpdateDatabaseListener;
 import android.serry.weatherapplication.utilities.Constants;
-import android.serry.weatherapplication.viewsFragments.BookmarksFragment;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -26,8 +21,6 @@ public class Bookmark implements Parcelable {
     private String country;
     private String lat;
     private String lng;
-    @Nullable
-    private static BookmarksFragment instanceMapFragment;
 
     public Bookmark(String country, String lat, String lng) {
         this.country = country;
@@ -37,6 +30,11 @@ public class Bookmark implements Parcelable {
 
     public Bookmark() {
 
+    }
+
+    /*for test*/
+    public Bookmark(int id) {
+        this.id = id;
     }
 
     protected Bookmark(Parcel in) {
@@ -74,7 +72,6 @@ public class Bookmark implements Parcelable {
         this.country = country;
     }
 
-
     public String getLat() {
         return lat;
     }
@@ -91,11 +88,15 @@ public class Bookmark implements Parcelable {
         this.lng = lng;
     }
 
-    public void addBookmarkToDatabase(Bookmark bookmark, Context context, OnUpdateDatabaseListener onUpdateDatabaseListener) {
+    private AppDatabase getInstance(Context context) {
+        return Room.databaseBuilder(context, AppDatabase.class, Constants.DATABASE).allowMainThreadQueries()
+                .addMigrations(Constants.addMigration(0, 1)).build();
+    }
+
+    public void insertBookmarkToDB(Bookmark bookmark, Context context, OnUpdateDatabaseListener onUpdateDatabaseListener) {
         getInstance(context).bookmarkDao().insert(bookmark);
         int count = getInstance(context).bookmarkDao().countBookmark();
         onUpdateDatabaseListener.onSuccess(count);
-
     }
 
     public void loadBookmarksFromDB(Context context, OnLoadBookmarks onLoadBookmarks) {
@@ -103,9 +104,9 @@ public class Bookmark implements Parcelable {
         onLoadBookmarks.onLoad(bookmarkList);
     }
 
-    private AppDatabase getInstance(Context context) {
-        return Room.databaseBuilder(context, AppDatabase.class, Constants.DATABASE).allowMainThreadQueries()
-                .addMigrations(Constants.addMigration(0, 1)).build();
+    public void deleteBookmarkFromDB(Context context, int id, OnSuccessDeletedListener onSuccessDeletedListener) {
+        getInstance(context).bookmarkDao().delete(id);
+        onSuccessDeletedListener.onSuccessDeleted();
     }
 
     @Override
@@ -118,10 +119,5 @@ public class Bookmark implements Parcelable {
         parcel.writeInt(id);
         parcel.writeString(lat);
         parcel.writeString(lng);
-    }
-
-    public void deleteBookmarkFromDB(Context context, int id, OnSuccessDeletedListener onSuccessDeletedListener) {
-        getInstance(context).bookmarkDao().delete(id);
-        onSuccessDeletedListener.onSuccessDeleted();
     }
 }

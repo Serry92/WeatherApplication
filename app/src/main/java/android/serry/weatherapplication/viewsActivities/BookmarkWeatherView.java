@@ -1,4 +1,4 @@
-package android.serry.weatherapplication.views;
+package android.serry.weatherapplication.viewsActivities;
 
 import android.serry.weatherapplication.models.WeatherResponse;
 
