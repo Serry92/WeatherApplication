@@ -53,5 +53,6 @@ public class BookmarkWeatherActivity extends AppCompatActivity implements Bookma
     @Override
     public void showErrorMessage() {
         Toast.makeText(this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
     }
 }

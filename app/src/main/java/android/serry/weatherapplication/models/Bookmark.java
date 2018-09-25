@@ -29,12 +29,6 @@ public class Bookmark implements Parcelable {
     }
 
     public Bookmark() {
-
-    }
-
-    /*for test*/
-    public Bookmark(int id) {
-        this.id = id;
     }
 
     protected Bookmark(Parcel in) {
@@ -117,6 +111,7 @@ public class Bookmark implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
+        parcel.writeString(country);
         parcel.writeString(lat);
         parcel.writeString(lng);
     }
